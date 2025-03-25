@@ -1,0 +1,60 @@
+body {
+    background: linear-gradient(135deg, #001a33, #00264d);
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+  }
+  
+  .nav-link {
+    color: cyan;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .title {
+    font-size: 50px;
+    font-weight: bold;
+  }
+  
+  .highlight {
+    color: cyan;
+  }
+  
+  .description {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .detect-container {
+    padding: 50px;
+  }
+  
+  .detect-title {
+    font-size: 30px;
+    color: cyan;
+  }
+  
+  .upload-btn {
+    margin-top: 20px;
+    padding: 10px;
+    background: cyan;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: yellow;
+  }
+  

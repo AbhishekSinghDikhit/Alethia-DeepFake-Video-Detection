@@ -1,0 +1,88 @@
+body {
+  background: linear-gradient(135deg, #001a33, #00264d);
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align everything to the left */
+  justify-content: flex-start;
+  padding: 2rem; /* Adds spacing from the left edge */
+  height: 100vh;
+  color: white;
+}
+
+.navbar {
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  padding: 20px;
+}
+
+.nav-link {
+  color: cyan;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  justify-content: flex-start;
+}
+
+.highlight {
+  color: cyan;
+}
+
+.description {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 2rem 0 0 0;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.detect-container {
+  padding: 50px;
+  margin: 2rem 0 0 0;
+  text-align: left;
+}
+
+.detect-title {
+  font-size: 30px;
+  color: cyan;
+}
+
+.upload-btn {
+  margin-top: 20px;
+  padding: 10px;
+  background: cyan;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: yellow;
+}
+
+/* Full-screen background image */
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('/bgimage.jpg') no-repeat center center/cover;
+  z-index: -1; /* Ensures it's behind all content */
+}
