@@ -41,19 +41,31 @@ function Detect() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br text-white pt-20">
-      <h2 className="text-4xl font-bold text-cyan-400 mb-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br text-white px-4 sm:px-6 md:px-12 pt-16 sm:pt-20">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 mb-4 sm:mb-6 text-center">
         IS YOUR VIDEO <span className="text-cyan-300">FAKE?</span> CHECK IT!
       </h2>
-      <FileUpload onUpload={setVideo} />
+
+      {/* Upload Component */}
+      <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
+        <FileUpload onUpload={setVideo} />
+      </div>
+
+      {/* Submit Button */}
       <button 
         onClick={handleSubmit} 
         disabled={!video || loading} 
-        className="px-6 py-2 mt-4 text-black font-bold border-2 border-black rounded-md bg-white hover:bg-black hover:text-white disabled:bg-gray-500 disabled:cursor-not-allowed transition"
+        className="px-4 sm:px-6 py-2 sm:py-3 mt-4 sm:mt-6 text-sm sm:text-base text-black font-bold border-2 border-black rounded-md bg-white hover:bg-black hover:text-white disabled:bg-gray-500 disabled:cursor-not-allowed transition"
       >
         {loading ? "Processing..." : "Submit"}
       </button>
-      {result && <ResultCard result={result} />}
+
+      {/* Result Card */}
+      {result && (
+        <div className="w-full max-w-xs sm:max-w-sm md:max-w-lg mt-4 sm:mt-6">
+          <ResultCard result={result} />
+        </div>
+      )}
     </div>
   );
 }
