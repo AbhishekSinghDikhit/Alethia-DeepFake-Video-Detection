@@ -6,33 +6,36 @@ import tempfile
 import tensorflow as tf
 import uvicorn
 import os
-# from google.cloud import storage
+from google.cloud import storage
 
 app = FastAPI()
 
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://alethia2104.vercel.app"],  # Vite default port
+    allow_origins=["http://localhost:5173", "https://alethia2104.vercel.app"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# def download_model():
-#     client = storage.Client()
-#     bucket = client.bucket("alethia_model")
-#     blob = bucket.blob("deepfake_detection_model.keras")
-#     blob.download_to_filename("models/deepfake_detection_model.keras")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:/Abhishek/Projects/Alethia/alethia-454821-2c9cefb33cc3.json"
+
+def download_model():
+    client = storage.Client()
+    bucket = client.bucket("alethia_model")
+    blob = bucket.blob("deepfake_detection_model.keras")
+    os.makedirs("models", exist_ok=True)  # Ensure the folder exists
+    blob.download_to_filename("models/deepfake_detection_model.keras")
 
 # Call this before loading the model
-# download_model()
-# model = tf.keras.models.load_model("models/deepfake_detection_model.keras")
+download_model()
+model = tf.keras.models.load_model("models/deepfake_detection_model.keras")
 
 # # Load the deepfake detection model
-base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the current directory
-model_path = os.path.join(base_dir, "models", "deepfake_detection_model.keras")
-model = tf.keras.models.load_model(model_path)
+# base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the current directory
+# model_path = os.path.join(base_dir, "models", "deepfake_detection_model.keras")
+# model = tf.keras.models.load_model(model_path)
 
 # Define constants
 FRAME_COUNT = 10  # Model expects exactly 10 frames per video
