@@ -9,6 +9,7 @@ import os
 from google.cloud import storage
 from dotenv import load_dotenv
 import base64
+import json
 
 load_dotenv()
 app = FastAPI()
@@ -22,23 +23,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-b64_key = os.getenv("GCP_SERVICE_ACCOUNT_KEY_B64")
+gcp_b64 = os.getenv("GCP_SERVICE_ACCOUNT_KEY_B64")
 
-if not b64_key:
-    raise ValueError("GCP_SERVICE_ACCOUNT_KEY_B64 environment variable not set!")
+if gcp_b64:
+    try:
+        # Decode the Base64 string
+        gcp_json = json.loads(base64.b64decode(gcp_b64).decode())
 
-# Decode the Base64 string to original JSON content
-decoded_json = base64.b64decode(b64_key).decode("utf-8")
+        # Save the JSON key to a temporary file
+        gcp_key_path = "/tmp/gcp-key.json"
+        with open(gcp_key_path, "w") as f:
+            json.dump(gcp_json, f)
 
-# Define a secure path for storing the key
-gcp_key_path = "/opt/render/project/.gcp-key.json"
+        # Set GOOGLE_APPLICATION_CREDENTIALS to point to the saved file
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gcp_key_path
+        print(f"✅ GCP key successfully written to: {gcp_key_path}")
 
-# Write decoded JSON content to a file
-with open(gcp_key_path, "w") as f:
-    f.write(decoded_json)
+    except Exception as e:
+        raise RuntimeError(f"❌ Failed to decode and save GCP key: {e}")
 
-# Set environment variable to use the key
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gcp_key_path
+else:
+    raise ValueError("❌ GCP service account key not found in environment variables")
+
+# Initialize Google Cloud Storage client
+client = storage.Client()
 
 def download_model():
     client = storage.Client()
