@@ -13,7 +13,7 @@ app = FastAPI()
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://alethia2104.vercel.app/"],  # Vite default port
+    allow_origins=["http://localhost:5173", "https://alethia2104.vercel.app"],  # Vite default port
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
