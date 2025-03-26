@@ -7,7 +7,10 @@ import tensorflow as tf
 import uvicorn
 import os
 from google.cloud import storage
+from dotenv import load_dotenv
+import base64
 
+load_dotenv()
 app = FastAPI()
 
 # Enable CORS
@@ -19,7 +22,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:/Abhishek/Projects/Alethia/alethia-454821-2c9cefb33cc3.json"
+b64_key = os.getenv("GCP_SERVICE_ACCOUNT_KEY_B64")
+
+if not b64_key:
+    raise ValueError("GCP_SERVICE_ACCOUNT_KEY_B64 environment variable not set!")
+
+# Decode the Base64 string to original JSON content
+decoded_json = base64.b64decode(b64_key).decode("utf-8")
+
+# Define a secure path for storing the key
+gcp_key_path = "/opt/render/project/.gcp-key.json"
+
+# Write decoded JSON content to a file
+with open(gcp_key_path, "w") as f:
+    f.write(decoded_json)
+
+# Set environment variable to use the key
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gcp_key_path
 
 def download_model():
     client = storage.Client()
