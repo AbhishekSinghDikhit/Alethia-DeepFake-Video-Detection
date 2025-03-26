@@ -6,7 +6,7 @@ import tempfile
 import tensorflow as tf
 import uvicorn
 import os
-from google.cloud import storage
+# from google.cloud import storage
 
 app = FastAPI()
 
@@ -19,20 +19,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def download_model():
-    client = storage.Client()
-    bucket = client.bucket("alethia_model")
-    blob = bucket.blob("deepfake_detection_model.keras")
-    blob.download_to_filename("models/deepfake_detection_model.keras")
+# def download_model():
+#     client = storage.Client()
+#     bucket = client.bucket("alethia_model")
+#     blob = bucket.blob("deepfake_detection_model.keras")
+#     blob.download_to_filename("models/deepfake_detection_model.keras")
 
 # Call this before loading the model
-download_model()
-model = tf.keras.models.load_model("models/deepfake_detection_model.keras")
+# download_model()
+# model = tf.keras.models.load_model("models/deepfake_detection_model.keras")
 
 # # Load the deepfake detection model
-# base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the current directory
-# model_path = os.path.join(base_dir, "models", "deepfake_detection_model.keras")
-# model = tf.keras.models.load_model(model_path)
+base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the current directory
+model_path = os.path.join(base_dir, "models", "deepfake_detection_model.keras")
+model = tf.keras.models.load_model(model_path)
 
 # Define constants
 FRAME_COUNT = 10  # Model expects exactly 10 frames per video
