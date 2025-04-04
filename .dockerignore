@@ -1,0 +1,8 @@
+__pycache__/
+.vscode/
+database.db
+.venv
+.env
+*.pyc
+*.pyo
+*.pyd
