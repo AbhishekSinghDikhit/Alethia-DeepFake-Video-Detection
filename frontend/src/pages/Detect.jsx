@@ -16,7 +16,7 @@ function Detect() {
     setLoading(true);
 
     try {
-      const response = await fetch("https://alethia-backend.azurewebsites.net/detect", {
+      const response = await fetch("https://alethia-backend.azurewebsites.net/detect/", {
         method: "POST",
         body: formData,
       });
